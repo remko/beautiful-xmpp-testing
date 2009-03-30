@@ -1,0 +1,14 @@
+*.dep
+*.o
+*.a
+*.swp
+*~
+fop.cfg
+/BeautifulXMPPTesting.fo
+/BeautifulXMPPTesting.html
+/BeautifulXMPPTesting.pdf
+/BeautifulXMPPTesting.flat.xml
+/BeautifulXMPPTesting.tar.gz
+/docbook
+/src/AllTests
+/generated/*
