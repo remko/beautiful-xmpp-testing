@@ -7,7 +7,7 @@ include docbook-kit/tools/Makefile.inc
 ################################################################################
 
 .PHONY: check
-check: check-document check-spelling
+check: check-document check-quotes check-braces check-spelling
 	scripts/CheckStanzas.py $(DOCUMENT) $(DOCUMENT_DEPENDENCIES)
 	$(MAKE) -C src
 

@@ -14,7 +14,7 @@ SimpleEventLoop eventLoop;
 
 typedef Client XMPPClient;
 void handleConnected();
-void handleRosterResponse(shared_ptr<RosterPayload>, Maybe<Error> error);
+void handleRosterResponse(shared_ptr<RosterPayload>, optional<Error> error);
 
 /// TestClient
 
@@ -34,7 +34,7 @@ void handleConnected() {
 	rosterRequest->send();
 }
 
-void handleRosterResponse(shared_ptr<RosterPayload>, Maybe<Error> error) {
+void handleRosterResponse(shared_ptr<RosterPayload>, optional<Error> error) {
 	rosterReceived = !error; /* (*) If there was no error, we received the roster properly. */
 	xmppClient->disconnect();
 }

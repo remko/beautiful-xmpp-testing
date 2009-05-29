@@ -77,7 +77,9 @@
     first get a quick crash course about how XMPP works.</para>
 
     <figure id="Figure-Architecture">
-      <title>Architecture of the XMPP Network.</title>
+      <title>The decentralized architecture of the XMPP Network. Clients 
+        connect to servers from different domains, which in turn connect
+        to each other.</title>
       <mediaobject>
         <imageobject role="html">
           <imagedata fileref="img/Architecture.png" format="PNG" align="center"/>
@@ -249,9 +251,6 @@
         Many of the XMPP protocols are simple: one side sends an 
         IQ request, the other side receives the request, processes it, and
         responds with an IQ result.
-      </para>
-      
-      <para>
         An example of such a simple request-response protocol is the 
         software version protocol illustrated earlier.
         An implementation of this protocol consists of two parts:
@@ -259,7 +258,7 @@
           <listitem><para>
             The <emphasis>initiator</emphasis> implementation 
             sends a software version request, and processes the corresponding 
-            response.</para>
+            response when it comes in.</para>
           </listitem>
           <listitem>
             <para>
@@ -322,12 +321,15 @@
 
       <example id="Example-DataChannel">
         <title>Abstracting out data interaction in a 
-          <literal>DataChannel</literal> interface.</title>
+          <literal>DataChannel</literal> interface. The 
+          <literal>XMPPClient</literal> class is a concrete implementation of
+          this interface.</title>
         <include xmlns="http://www.w3.org/2001/XInclude" href="generated/DataChannel.h.xml" xpointer="xpointer(//programlisting|//calloutlist)"/> 
       </example>
 
       <example id="Example-VersionResponderTest-XML">
-        <title>Testing <literal>VersionResponder</literal> using raw XML.</title>
+        <title>Testing <literal>VersionResponder</literal> using raw 
+          serialized XML data.</title>
         <include xmlns="http://www.w3.org/2001/XInclude" href="generated/VersionResponderTest_V1.Tests.cpp.xml" xpointer="xpointer(//programlisting|//calloutlist)"/> 
       </example>
 
@@ -392,7 +394,9 @@
       </example>-->
 
       <example id="Example-VersionResponder-Structured">
-        <title>Testing <literal>VersionResponder</literal> using the structured XML representation.</title>
+        <title>Testing <literal>VersionResponder</literal> using the structured XML representation. This test is no longer influenced by changes in the way the
+        XML stanzas are serialized for transferring (e.g. different 
+        attribute order, extra whitespace, &hellip;).</title>
         <include xmlns="http://www.w3.org/2001/XInclude" href="generated/VersionResponderTest_V2.Tests.cpp.xml" xpointer="xpointer(//programlisting|//calloutlist)"/> 
       </example>
 
@@ -442,7 +446,11 @@
       <xref linkend="Example-VersionResponderTest-Logic"/>.</para>
 			
       <example id="Example-VersionResponderTest-Logic">
-        <title>Testing the logic of <literal>VersionResponder</literal>.</title>
+        <title>Testing the logic of <literal>VersionResponder</literal>.
+          The actual (XML) representation of the stanzas sent and
+          received by <literal>VersionResponder</literal> are no longer
+          explicitly present in this test, making the test resistant
+          against changes in representation.</title>
         <include xmlns="http://www.w3.org/2001/XInclude" href="generated/VersionResponderTest_V3.Tests.cpp.xml" xpointer="xpointer(//programlisting|//calloutlist)"/> 
       </example>
 
@@ -568,7 +576,7 @@
       </para>
 
       <example id="Example-RoomDiscovererTest">
-        <title>Testing RoomDiscoverer.</title>
+        <title>Testing <literal>RoomDiscoverer</literal>.</title>
         <include xmlns="http://www.w3.org/2001/XInclude" href="generated/RoomDiscovererTest.Tests.cpp.xml" xpointer="xpointer(//programlisting|//calloutlist)"/> 
       </example>
 
@@ -918,7 +926,7 @@
     <biblioentry id="XML-C14n">
       <abbrev>XML-C14n</abbrev>
 
-      <title><ulink url="http://www.w3.org/TR/xml-C14n">Canonical
+      <title><ulink url="http://www.w3.org/TR/xml-C14n.html">Canonical
       XML</ulink></title>
 
       <author>

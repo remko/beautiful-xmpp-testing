@@ -48,7 +48,7 @@ void SessionTest::testStart_Encrypt() {
 	serverSendsStreamStart(); /* (*) Similarly to the client, the server also starts the stream by sending a <literal>&lt;stream&gt;</literal> tag. */
 	serverSendsStreamFeaturesWithStartTLS(); /* (*) Immediately after sending the opening stream tag, the server sends a list of all the features it supports. In this case, it announces support for stream encryption using <firstterm>StartTLS</firstterm>. */
 	sessionSendsStartTLS(); /* (*) The client sends a <literal>&lt;starttls/&gt;</literal> element to request the server to encrypt the connection. */
-	serverSendsTLSProceed(); /* (*) The server responds with a <literal>&lt;proceed/&gt;</literal>, indicating that the TLS negotiation (or <emphasis>handshake</emphasis> can start. */
+	serverSendsTLSProceed(); /* (*) The server responds with a <literal>&lt;proceed/&gt;</literal>, indicating that the TLS negotiation (or <emphasis>handshake</emphasis>) can start. */
 	
 	ASSERT(session->isNegotiatingTLS());
 
