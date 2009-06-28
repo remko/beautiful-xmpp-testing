@@ -64,7 +64,7 @@
 		As you might expect, there will be a lot of code in the text
 		that follows. And since I’m taking inspiration from Swift, and 
 		since Swift is 
-		written in C++, the examples in this text will be as well. Using a 
+		written in C++, the examples in this text will be written in C++ as well. Using a 
 		language like Ruby or Python probably would have made the tests look more 
 		attractive, but I stand by my point that true beauty in tests goes beyond
 		shallow looks.</para>
@@ -74,7 +74,7 @@
     <title>XMPP 101</title>
     <para>
     Before diving into the details of XMPP implementation testing, let’s
-    first get a quick crash course about how XMPP works.</para>
+    first have a quick crash course about how XMPP works.</para>
 
     <figure id="Figure-Architecture">
       <title>The decentralized architecture of the XMPP Network. Clients 
@@ -82,7 +82,7 @@
         to each other.</title>
       <mediaobject>
         <imageobject role="html">
-          <imagedata fileref="img/Architecture.png" format="PNG" align="center"/>
+          <imagedata fileref="img/Architecture.png" format="PNG" width="100%" align="center"/>
         </imageobject>
         <imageobject role="fo">
           <imagedata fileref="img/Architecture.png" format="PNG" width="75%" scalefit="1" align="center"/>
@@ -404,7 +404,7 @@
       than the one from <xref linkend="Example-VersionResponderTest-XML"/>.
       For this one test, the fact that the test has become less compact and
       readable is only a small price to pay. However, 
-      suppose we also want to test the case where the
+      suppose now that we also want to test the case where the
       user didn’t provide a version to the version responder, in which 
       case we want to send back “Unknown version” as a version string.
       This test would in fact look exactly as 
