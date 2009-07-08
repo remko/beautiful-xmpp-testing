@@ -4,6 +4,7 @@
 *.swp
 *~
 fop.cfg
+/BeautifulXMPPTesting.wp.php
 /BeautifulXMPPTesting.fo
 /BeautifulXMPPTesting.html
 /BeautifulXMPPTesting.pdf
