@@ -13,8 +13,8 @@
   </articleinfo>
 
   <para>At my first job interview, one of the interviewers asked me
-  if I knew what “unit testing” was, and whether I used it before. Although I had 
-  been developing an XMPP-based Instant Messaging client for years, I had to
+  if I knew what “unit testing” was and whether I used it before. Although I had 
+  been developing an XMPP-based instant messaging (IM) client for years, I had to
   admit that I only vaguely knew what it was, and that I hardly did
   any automated testing at all. I had a perfectly good reason, though: 
   since XMPP
@@ -43,12 +43,12 @@
 		client (<ulink url="http://swift.im"><uri>http://swift.im</uri></ulink>).
 		Swift is only one of the many XMPP implementations out there, and may not
 		be the only one that applies the testing methods described here.
-		However, it possibly is the client that takes most pride in beautiful
+		However, it might be the client that takes most pride in beautiful
 		tests.</para>
 		
 		<para>So, what do I consider to be “beautiful testing”?
-		As you probably discovered by now, opinions greatly vary
-		on the subject. My point of view, being a software developer, is
+		As you probably discovered by now, opinions 
+		on the subject greatly vary. My point of view, being a software developer, is
 		that beauty in tests is about the <emphasis>code</emphasis> behind
 		the tests. Naturally,
 		beautiful tests look good aesthetically, so layout plays a role.
@@ -62,9 +62,8 @@
 		
 		<para>
 		As you might expect, there will be a lot of code in the text
-		that follows. And since I’m taking inspiration from Swift, and 
-		since Swift is 
-		written in C++, the examples in this text will be written in C++ as well. Using a 
+		that follows. And since I’m taking inspiration from Swift, which is
+		 written in C++, the examples in this text will be written in C++ as well. Using a 
 		language like Ruby or Python probably would have made the tests look more 
 		attractive, but I stand by my point that true beauty in tests goes beyond
 		shallow looks.</para>
@@ -95,7 +94,7 @@
     <xref linkend="Figure-Architecture"/>. The job of XMPP is to route
     small “packets” of XML between these entities on the network. For example,
     Alice, who is connected to the <literal>wonderland.lit</literal> server,
-    may want to send a message to her sister, connected to the
+    may want to send a message to her sister, who is connected to the
     <literal>realworld.lit</literal> server. To do that, she puts her
     message into a small snippet of XML:
     <programlisting><![CDATA[<message from="alice@wonderland.lit/RabbitHole"
@@ -114,7 +113,7 @@
     One user can be connected to the server with multiple instances of
     a client; the <literal>resource</literal> part of the JID gives a unique
     name to every connected instance. In some cases, the resource part can
-    be left out, which means the server can route the message to whatever 
+    be left out, which means the server can route the message to whichever 
     connected instance it deems best.</para>
 
     <para>The small packets of XML that are routed through the network are
@@ -143,7 +142,7 @@
         them of Alice’s unavailability.</para>
       </listitem>
       <listitem>
-        <para><firstterm>Info/Query</firstterm> stanzas provide a mechanism
+        <para><firstterm>Info/query</firstterm> (IQ) stanzas provide a mechanism
           for request/response interactions between entities, typically
           used to query or change information on a given entity. For example,
           Alice could be interested in knowing what client version her 
@@ -194,11 +193,11 @@
     without having to worry about conflicting payload element names. 
 		For example,
     many of the early XMPP protocol extensions (including the software version 
-		protocol used above) use the <literal>query</literal>
+		protocol used in the examples) use the <literal>query</literal>
     payload. By using namespaces such as 
     <literal>jabber:iq:version</literal>, entities know which type of 
     protocol they are dealing with when they receive a <literal>query</literal>
-		payload, and know how to interpret the payload.</para>
+		payload, and they know how to interpret the payload.</para>
 
     <para>This section only scratched the surface of XMPP, just enough to
     get you through the rest of this text. If you want to learn 
@@ -221,9 +220,9 @@
       provide the basic building blocks for XMPP, describing how an XMPP
       connection is set up, and what you can send over it. On top of the
       core protocols, the XMPP Standards Foundation created an ever-growing list
-      of <firstterm>XMPP Extension Protocols</firstterm> (or XEPs). These
+      of <firstterm>XMPP Extension Protocols</firstterm> (XEPs). These
       specifications describe how to extend the core protocol for very specific 
-      features, ranging from simple things like requesting the software 
+      features, ranging from simple things such as requesting the software 
       version of another client (standardized in <citation><biblioref linkend="XEP-0092"/></citation>), up to complex protocols for 
       negotiating audio/video conference calls between clients, 
       transferring files, and so on. 
@@ -231,10 +230,10 @@
       
 		<para>This text focuses on testing the functionality of XMPP protocol
 		implementations,
-		answering questions like “Does my client correctly respond to
-		incoming requests”, “Does my client send the right requests at the right
-		time”, “Can my client handle this specific response on this request”,
-		and so on. We start out by looking at the most simple request/response
+		answering questions such as “Does my client correctly respond to
+		incoming requests?”, “Does my client send the right requests at the right
+		time?”, “Can my client handle this specific response on this request?”,
+		and so on. We start out by looking at the most simple request-response
 		protocols, after which we gradually move up the ladder to more complex
 		protocols. While the complexity of the protocols increases, the level at
 		which the tests are written becomes higher at well, moving from very
@@ -257,19 +256,19 @@
         <itemizedlist>
           <listitem><para>
             The <emphasis>initiator</emphasis> implementation 
-            sends a software version request, and processes the corresponding 
+            sends a software version request and processes the corresponding 
             response when it comes in.</para>
           </listitem>
           <listitem>
             <para>
             The <emphasis>responder</emphasis> listens for incoming software
-            version requests, and responds to them.</para>
+            version requests and responds to them.</para>
           </listitem>
         </itemizedlist>
         These implementations are typically implemented locally in one
-        class for the initiator and one for the responder<footnote><para>
+        class for the initiator and one for the responder.<footnote><para>
         Some implementations are even known to put both responder and initiator
-        implementations in one class. Don’t try this at home, kids!</para></footnote>.
+        implementations in one class. Don’t try this at home, kids!</para></footnote>
         For example, <xref linkend="Example-VersionResponder"/> shows 
         how a <literal>VersionResponder</literal> class is instantiated
         in a client to respond to incoming software version requests. All
@@ -303,12 +302,12 @@
       </para>
 
       <para>
-        A first thing we need to do is make sure we can create an isolated
+        First, we need to make sure we can create an isolated
         instance of <literal>Responder</literal>. The only dependency the
         class has is the <literal>XMPPClient</literal>, a class that
         sets up and manages the XMPP connection. Setting up and managing
         a connection involves quite some work, and in turn brings in 
-        other dependencies such as network interaction, authentication,
+        other dependencies, such as network interaction, authentication,
 				encryption mechanisms, and so on. Luckily, all
         <literal>VersionResponder</literal> needs to be able to do is
         send and receive data from a data stream. It therefore only needs
@@ -350,10 +349,9 @@
 
       <para>Whenever an XMPP client generates an XML stanza, it typically
       constructs the XML of the stanza by building up a structured document
-      (e.g. using a <citetitle>Document Object Model</citetitle> <citation><biblioref linkend="DOM"/></citation> API), and then
+      (e.g., using a <citetitle>Document Object Model</citetitle> <citation><biblioref linkend="DOM"/></citation> API), and then
       <firstterm>serializes</firstterm> this document into a textual XML
-      representation, which is then sent over the network. In the above
-      example, our test records exactly the serialized XML stanza generated by
+      representation, which is then sent over the network. In <xref linkend="Example-DataChannel"/>, our test records exactly the serialized XML stanza generated by
       the responder being tested, and then compares it to a piece of XML that it expects.
       The problem with this approach is that the same XML element can be
       serialized in different correct ways. For example, we could have
@@ -366,7 +364,7 @@
       <para>One solution to avoid the fragility caused by XML serialization is
       to ensure that serialized stanzas are always in <citetitle>Canonical
       XML</citetitle> <citation><biblioref linkend="XML-C14n"/></citation>
-      form. By normalizing away non-meaningful properties like attribute order
+      form. By normalizing away non-meaningful properties such as attribute order
       and whitespace, this subset of XML ensures that two equivalent XML
       stanzas can be compared in a stable way, thus solving the fragility
       of our tests. Unfortunately, since XMPP implementations typically use
@@ -375,8 +373,8 @@
       stanzas.</para>
 
       <para>The solution most XMPP implementations take to verify responses is
-      to check the structured DOM form of the response, instead of
-      comparing the serialized form. In our example, this means that our
+      to check the structured DOM form of the response instead of
+      comparing the serialized form. As shown in <xref linkend="Example-VersionResponder-Structured"/>, this means that our
       <literal>VersionResponder</literal> no longer uses an
       interface to send raw data, but instead depends on a more structured
       <literal>XMLElementChannel</literal> interface to send and receive stanzas
@@ -395,8 +393,8 @@
 
       <example id="Example-VersionResponder-Structured">
         <title>Testing <literal>VersionResponder</literal> using the structured XML representation. This test is no longer influenced by changes in the way the
-        XML stanzas are serialized for transferring (e.g. different 
-        attribute order, extra whitespace, &hellip;).</title>
+        XML stanzas are serialized for transferring (e.g., different 
+        attribute order, extra whitespace, etc.).</title>
         <include xmlns="http://www.w3.org/2001/XInclude" href="generated/VersionResponderTest_V2.Tests.cpp.xml" xpointer="xpointer(//programlisting|//calloutlist)"/> 
       </example>
 
@@ -417,7 +415,7 @@
       complex our protocol is (and hence the more tests it needs).
       </para>
 
-      <para>A first part of the duplication lies in checking whether the
+      <para>A first part of the duplication lays in checking whether the
       responder sends an <literal>&lt;iq/&gt;</literal> stanza of type
       <literal>result</literal>, whether it is addressed to the sender
       of the original stanza, and whether the identifier matches that of
@@ -428,9 +426,9 @@
       analyze the structure of the XML to extract the values we want to
       test. The real underlying problem here is the fact that
       our tests are testing two things at once:
-      the <emphasis>logic</emphasis> of the protocol (i.e. 
+      the <emphasis>logic</emphasis> of the protocol (i.e., 
       <emphasis>what</emphasis> it should respond), and the
-      <emphasis>representation</emphasis> of the responses (i.e.
+      <emphasis>representation</emphasis> of the responses (i.e.,
       <emphasis>how</emphasis> the request and response is represented in 
       XML).</para>
       
@@ -478,26 +476,26 @@
       tested independently of the actual representation of the data sent over
       the network. Although it might seem overkill to separate the XML parsing
       and serializing from the actual data structure for a simple protocol like
-      the one above, it makes testing more complex (multi-stage) protocols from
+      the one shown here, it makes testing the more complex (multistage) protocols from
       the next sections a lot cleaner.</para>
     </section>
 
     <section>
-      <title>Unit Testing Multi-Stage Protocols</title>
+      <title>Unit Testing Multistage Protocols</title>
 
-      <para>So far, the class of protocols we considered were rather simple:
+      <para>So far, the class of protocols we have considered were rather simple:
       one side sent out a request, the other side responded, and we were done.
-      Although many of the XMPP protocols fall within this category of
-      protocols, there are several others that consist of multiple iterations
+      Although many of the XMPP protocols fall within this category,
+      there are several others that consist of multiple iterations
       of these request-response cycles. These protocols start by doing a
-      request, and take subsequent steps based on the response of previous
+      request, and then take subsequent steps based on the response of previous
       requests. Testing these types of protocols is the focus of this
       section.</para>
 
       <para>Besides person-to-person conversations, XMPP also allows users
       to join chat “rooms” to communicate with multiple people at once. 
       Whenever a user wants to join such a 
-      <emphasis>Multi-User Chat</emphasis> (<emphasis>MUC</emphasis> for short),
+      <emphasis>Multi-user Chat</emphasis> (<emphasis>MUC</emphasis> for short),
       an IM client needs to detect the
       MUC rooms that are available on a server, and present this list to the
       server. Obtaining this list requires a chain of multiple 
@@ -535,7 +533,7 @@
     <feature var="http://jabber.org/protocol/pubsub" />
   </query>
 </iq>]]></programlisting>
-      This service only seems to support the PubSub protocol (feature), 
+      This service seems to support the only PubSub protocol (feature), 
       which is not
       what Alice was looking for. The second service, however, responds with
       the following feature list:
@@ -563,16 +561,16 @@
       </para>
 
       <para>
-        As you can tell from the scenario above, a lot of stanzas are
+        As you can tell from this scenario, a lot of stanzas are
         going back and forth. Things become even more complex if you take into
         consideration that every step can result in an error response from
         the responding entity. Testing this protocol therefore involves
-        multiple tests, testing whether our client can handle every type
+        multiple tests for determining whether our client can handle every type
         of response from the server, both successful and unsuccessful. Luckily,
         because of the high level at which we test our protocols, creating
         a test for one scenario can be very compact and straightforward. 
-        For example, a test for the “happy“ error-less scenario described 
-				above is shown in <xref linkend="Example-RoomDiscovererTest"/>.
+        For example, a test for the “happy” error-less scenario described 
+				earlier is shown in <xref linkend="Example-RoomDiscovererTest"/>.
       </para>
 
       <example id="Example-RoomDiscovererTest">
@@ -600,7 +598,7 @@
 
       <para>
         In this section, I showed how you can apply the high level of testing 
-				described in the previous section on more complex, multi-stage
+				described in the previous section on more complex, multistage
 				protocols. Because the tests aren’t cluttered
         by low-level protocol representational details, the tests can focus
         on testing the actual logic of the protocol, allowing the number of
@@ -613,7 +611,7 @@
       <title>Testing Session Initialization</title>
 
       <para>
-        By looking at both the single and multi-stage request/response
+        By looking at both the single- and multistage request/response
         protocols from the previous sections, we covered most of the 
         XMPP protocols out there. Although the level of testing for these
         protocols was already rather high, some protocols are still 
@@ -628,16 +626,16 @@
         One of the most complex protocols in XMPP is <firstterm>session
         initialization</firstterm>. Session initialization in an IM client
         involves creating a connection to the server, negotiating parameters
-        of the connection (e.g. using stream compression for lower bandwidth
+        of the connection (e.g., using stream compression for lower bandwidth
         consumption, encrypting the stream for better security, and so on), 
         and finally authenticating with the server (typically involving
         sending a username and password to the server). Which parameters to
         negotiate with the server depends on what features the client and the
-        server support, and on the user preferences of the client. For example,
+        server support, and also on the user preferences of the client. For example,
         a server might not support stream encryption; depending on whether
-        the user has stated that he or she only wants to communicate over an 
-        encrypted connection or not, the client should report an error or
-        fall back on an unencrypted connection respectively.
+        the user has stated that he only wants to communicate over an 
+        encrypted connection, the client should either report an error or
+        fall back on an unencrypted connection, respectively.
       </para>
 
       <para>
@@ -645,7 +643,7 @@
         requires a concise way of describing a session initialization scenario.
         <xref linkend="Example-SessionTest-Encrypt"/> shows such a scenario
         test where the client encrypts the connection. By introducing 
-        helper methods describing what the client is supposed to send, and 
+        helper methods describing what the client is supposed to send and 
         what the server would send in response, we can clearly see how
         the encryption scenario is supposed to happen. It is easy to create
         scenarios for error conditions such as the server not supporting
@@ -676,7 +674,7 @@
       <para>
         With scenario-based testing, it is possible to test the most complex
         class of protocols, covering all their corner cases. Although many
-        of the corner cases of each “stage” in such protocols can still be
+        of the corner cases of each “stage” in such protocols can be
         tested separately in isolation, scenarios are still needed to test
         the interaction between the multiple stages of the protocol.
       </para>
@@ -690,13 +688,13 @@
       real network connection to an XMPP server), we were able to test
       all corner cases of a protocol while keeping our tests clean,
       simple, fast, and reliable. However, an XMPP client doesn’t live
-      in isolation: its purpose is to eventually connect to a
+      in isolation; its purpose is to eventually connect to a
       <emphasis>real</emphasis> XMPP server and talk to 
       <emphasis>real</emphasis> clients. Testing an XMPP client in the
       real world  is important for several reasons.
       First of all, it allows you to check the functionality of your
       application at a larger scale than the local unit testing, ensuring
-      that all the components work together correctly. Secondly,
+      that all the components work together correctly. Second,
       by communicating with other XMPP protocol implementations, you can
       test whether your interpretation of the protocol specification
       is correct. Finally, by testing your client against many different
@@ -704,7 +702,7 @@
       wide collection of XMPP software. Unless you are developing a 
       dedicated client to connect to only one specific server, testing 
       interoperability with other clients and servers is very important in
-      an open, heterogeneous network like XMPP.
+      an open, heterogeneous network such as XMPP.
     </para>
 
     <para>
@@ -712,7 +710,7 @@
       interoperability between two clients is typically done manually:
       both clients are started, they connect to a server, an operation is
       triggered through the user interface of one client, and the other client
-      is checked to respond correctly to the operation. Fully automating
+      is checked to determine whether it responds correctly to the operation. Fully automating
       UI-driven features is very hard.
     </para>
 
@@ -720,14 +718,14 @@
       Testing client-to-server interoperability is somewhat easier than 
       testing client-to-client communication. By creating a small 
       headless test program on top of the client’s XMPP protocol implementation,
-      we can test whether the basic XMPP functionality of the back end works
-      correctly, and even test complex protocols like session initialization
+      we can test whether the basic XMPP functionality of the backend works
+      correctly, and even test complex protocols such as session initialization
       in action. For example, consider the test program in 
       <xref linkend="Example-ClientTest"/>. This program logs into the server,
       fetches the roster, and returns successfully if it received the roster
       from the server. By running this program, we can test whether most parts
-      of our XMPP client’s back end work: network connection, session initialization, stream compression, stream encryption, sending IQ requests, notifications
-      of IQ responses, &hellip;
+      of our XMPP client’s backend work: network connection, session initialization, stream compression, stream encryption, sending IQ requests, notifications
+      of IQ responses, and so on.
     </para>
 
     <example id="Example-ClientTest">
@@ -738,37 +736,37 @@
     <para>
       A program similar to the one from <xref linkend="Example-ClientTest"/>
       is run as part of Swift’s automated test suite. We use a few different
-      server implementations to run this test against on every run, passing
+      server implementations on every run, passing
       the test JID and password of each server through the environment. If
 			<literal>ClientTest</literal> fails due to a bug in a protocol
-			implementation, a new unit test is added, and the protocol is fixed.
+			implementation, a new unit test is added and the protocol is fixed.
 			If the bug is due to a certain combination of protocols not being
 			handled properly (either by the client or by the server), a scenario
 			test is added to reproduce the scenario, after which either the client
-			bug is fixed, or the client is adapted to work around a specific
+			bug is fixed or the client is adapted to work around a specific
 			server implementation bug.
 		</para>
 
 		<para>
-			When using automated tests like the one above, a project is of course
+			When using automated tests like the one just described, a project is of course
 			always limited to testing against the implementations
       it has access to. Although it is always possible to test against the
       handful of free XMPP server implementations out there, testing against
       implementations from commercial vendors isn’t always straightforward. To
       make it easier for the XMPP community to test their implementations 
       against each other, there has been an initiative to create 
-      a centralized place (<uri>interop.xmpp.org</uri>) that provides access to
+      a centralized place (<uri>http://interop.xmpp.org</uri>) that provides access to
       test accounts on all server implementations out there, including ones
-      from commercial vendors<footnote><para>Unfortunately, this initiative 
+      from commercial vendors.<footnote><para>Unfortunately, this initiative 
       has currently
-      been put on hold for more urgent matters, but it will hopefully revive 
-      soon.</para></footnote>. This initiative paves the way to easy, 
+      been put on hold for more urgent matters, but it will hopefully be revived 
+      soon.</para></footnote> This initiative paves the way to easy, 
       automated interoperability testing for XMPP projects.
     </para>
   </section>
 	
 	<section>
-		<title>Diamond in the rough: Testing XML Validity</title>
+		<title>Diamond in the Rough: Testing XML Validity</title>
 
 		<para>
 			When testing the functionality of our protocol in the previous sections,
@@ -796,15 +794,15 @@
 			syntax and constraints of the XML used in the protocol.  For example, it
 			specifies the names of the XML elements that can occur in the payload,
 			the names and types of the attributes of these elements, the number of
-			times an element can occur, &hellip; Such XML schemas are typically used
+			times an element can occur, and so on. Such XML schemas are typically used
 			to test whether a piece of XML is syntactically valid according to the
 			rules specified in the schema. Unfortunately, the XMPP schemas currently
-			only serve a descriptive purpose, and are only used to document the
+			serve only a descriptive purpose, and are only used to document the
       protocol. This is why using the XMPP schemas in automated processes 
-			such as validity checking is still mostly unexplored terrain. However,
+			(such as validity checking) is still mostly unexplored terrain. However,
 			there has been interest lately in making normative XML schemas, which 
-			would open up quite some more possibilities for making the tedious
-			testing of XMPP parsing and serialization more pleasant, and who knows,
+			would open up some more possibilities for making the tedious
+			testing of XMPP parsing and serialization more pleasant and, who knows,
 			even beautiful!
 		</para>
 	</section>
@@ -814,13 +812,13 @@
 	
 		<para>
 			In our quest to create beautiful tests for checking XMPP protocol
-			implementations, we started out by testing simple request/response
+			implementations, we started out by testing simple request-response
 			protocols at the lowest level: the data sent over the network stream. 
 			After discovering that
 			this form of testing does not really scale well, we abstracted out
-			the protocol to a higher level, up to the point where the tests only
-      used high-level data structures. By testing protocol behavior on a high level,
-			we were able to write tests for more complex protocols, without
+			the protocol to a higher level, up to the point where the tests 
+      used only high-level data structures. By testing protocol behavior on a high level,
+			we were able to write tests for more complex protocols without
 			compromising the clarity of the tests. For the most complex protocols,
 			writing scenarios helped to cover all of the possible situations that
 			can arise in a protocol session. Finally, since XMPP is an open protocol
@@ -828,7 +826,7 @@
 			XMPP application on the real network, to ensure interoperability with
 			other implementations. By running small test programs regularly,
 			we were able to test the system in its entirety, and check whether
-			our implementation of the protocol plays nicely together with other
+			our implementation of the protocol plays together nicely with other
 			entities on the network.
 		</para>
 
@@ -840,11 +838,11 @@
 			of testing exist in the XMPP world besides protocol tests. For example,
 			performance testing is very crucial in the world of XMPP servers. Simple
 			test scripts or programs like the ones described earlier can be used to 
-      generate a high load on the server, and test whether the server can handle 
+      generate a high load on the server, and to test whether the server can handle 
 			increasing amounts of traffic. In XMPP clients, on the other hand, 
 			testing the user interface’s functionality is very important. Although 
-			automated UI testing is known to be hard, many complex parts such as 
-			contact list representation can be (unit) tested in isolation, which
+			automated UI testing is known to be hard, many complex parts, such as 
+			contact list representation, can be unit tested in isolation, which
       can avoid bugs in vital pieces of client code.
 		</para>
 
@@ -942,8 +940,8 @@
       Standards Foundation</ulink>, coauthor of several XMPP protocol
       extensions, and former lead developer of <ulink
       url="http://psi-im.org">Psi</ulink>, is a developer of the <ulink
-      url="http://swift.im">Swift</ulink> Jabber/XMPP project. He is also one
-      of the authors of the book <ulink
+      url="http://swift.im">Swift</ulink> Jabber/XMPP project. He is also
+      a coauthors of the book <ulink
       url="http://oreilly.com/catalog/9780596521264"><citetitle>XMPP: The
       Definitive Guide</citetitle></ulink>. His blog can be found at <ulink
       url="http://el-tramo.be"><uri>http://el-tramo.be</uri></ulink>.

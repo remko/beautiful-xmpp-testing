@@ -77,7 +77,7 @@ void RoomDiscovererTest::testDiscoverRooms() {
 		DiscoItems("blogs@pubsub.wonderland.lit", "croquet@pubsub.wonderland.lit"); 
 	infoResponses["rooms.wonderland.lit"] = /* (*) Respond that the <literal>rooms</literal> service supports MUC. */
 		DiscoInfo("http://jabber.org/protocol/muc");
-	itemsResponses["rooms.wonderland.lit"] = /* (*) Specify the list of items (i.e. rooms) of the MUC service. */
+	itemsResponses["rooms.wonderland.lit"] = /* (*) Specify the list of items (i.e., rooms) of the MUC service. */
 		DiscoItems("teaparty@rooms.wonderland.lit", "croquet@rooms.wonderland.lit");
 
 	// Set up room discoverer
