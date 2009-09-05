@@ -326,19 +326,22 @@
         <include xmlns="http://www.w3.org/2001/XInclude" href="generated/DataChannel.h.xml" xpointer="xpointer(//programlisting|//calloutlist)"/> 
       </example>
 
+      <para>
+      Now that we have all the ingredients for testing our 
+      <literal>VersionResponder</literal>, let’s have a first attempt at
+      writing a unit test. <xref linkend="Example-VersionResponderTest-XML"/> 
+      shows how we can test the basic behavior of the responder, using a 
+      mock data channel to generate and catch incoming and outgoing data
+      respectively.
+      </para>
+      
       <example id="Example-VersionResponderTest-XML">
         <title>Testing <literal>VersionResponder</literal> using raw 
           serialized XML data.</title>
         <include xmlns="http://www.w3.org/2001/XInclude" href="generated/VersionResponderTest_V1.Tests.cpp.xml" xpointer="xpointer(//programlisting|//calloutlist)"/> 
       </example>
 
-      <para>
-      Now that we have all the ingredients for testing our 
-      <literal>VersionResponder</literal>, let’s have a first attempt at
-      writing a unit test. <xref linkend="Example-VersionResponderTest-XML"/> 
-			shows how we can test the basic behavior of the responder, using a 
-			mock data channel to generate and catch incoming and outgoing data
-			respectively.  On first sight, this unit test
+      <para>On first sight, this unit test
       doesn’t look too bad: it’s
       relatively short, easy to understand, structured according to the rules
       of unit testing style, and isolates testing of the protocol from the
@@ -715,17 +718,19 @@
     </para>
 
     <para>
-      Testing client-to-server interoperability is somewhat easier than 
-      testing client-to-client communication. By creating a small 
-      headless test program on top of the client’s XMPP protocol implementation,
-      we can test whether the basic XMPP functionality of the backend works
-      correctly, and even test complex protocols such as session initialization
-      in action. For example, consider the test program in 
-      <xref linkend="Example-ClientTest"/>. This program logs into the server,
-      fetches the roster, and returns successfully if it received the roster
-      from the server. By running this program, we can test whether most parts
-      of our XMPP client’s backend work: network connection, session initialization, stream compression, stream encryption, sending IQ requests, notifications
-      of IQ responses, and so on.
+      Testing client-to-server interoperability is somewhat easier than testing
+      client-to-client communication. By creating a small headless test program
+      on top of the client’s XMPP protocol implementation, we can test whether
+      the basic XMPP functionality of the backend works correctly, and even
+      test complex protocols such as session initialization in action. For
+      example, consider the test program in <xref
+      linkend="Example-ClientTest"/>. This program logs into the server,
+      fetches the user’s contact list (also called
+      <firstterm>roster</firstterm>), and returns successfully if it received
+      the contact list from the server. By running this program, we can test
+      whether most parts of our XMPP client’s backend work: network connection,
+      session initialization, stream compression, stream encryption, sending IQ
+      requests, notifications of IQ responses, and so on.
     </para>
 
     <example id="Example-ClientTest">
@@ -943,7 +948,9 @@
       url="http://swift.im">Swift</ulink> Jabber/XMPP project. He is also
       a coauthors of the book <ulink
       url="http://oreilly.com/catalog/9780596521264"><citetitle>XMPP: The
-      Definitive Guide</citetitle></ulink>. His blog can be found at <ulink
+      Definitive Guide</citetitle></ulink>. He holds a Ph.D. in engineering
+      (computer science) from the Katholieke Universiteit Leuven.
+      His blog can be found at <ulink
       url="http://el-tramo.be"><uri>http://el-tramo.be</uri></ulink>.
     </para>
   </colophon>
