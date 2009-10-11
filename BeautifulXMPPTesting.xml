@@ -941,16 +941,17 @@
   <colophon>
     <title>About the Author</title>
     <para>
-      <emphasis role="bold">Remko Tronçon</emphasis>, a member of the <ulink url="http://xmpp.org">XMPP
-      Standards Foundation</ulink>, coauthor of several XMPP protocol
+      <emphasis role="bold">Remko Tronçon</emphasis> is a member of 
+      the <ulink url="http://xmpp.org">XMPP Standards Foundation</ulink>’s
+      council, coauthor of several XMPP protocol
       extensions, and former lead developer of <ulink
-      url="http://psi-im.org">Psi</ulink>, is a developer of the <ulink
-      url="http://swift.im">Swift</ulink> Jabber/XMPP project. He is also
-      a coauthors of the book <ulink
+      url="http://psi-im.org">Psi</ulink>, developer of the <ulink
+      url="http://swift.im">Swift</ulink> Jabber/XMPP project, and a
+      coauthor of the book <ulink
       url="http://oreilly.com/catalog/9780596521264"><citetitle>XMPP: The
-      Definitive Guide</citetitle></ulink>. He holds a Ph.D. in engineering
-      (computer science) from the Katholieke Universiteit Leuven.
-      His blog can be found at <ulink
+      Definitive Guide</citetitle></ulink>. He holds a Ph.D. in 
+      engineering (computer science) from the Katholieke Universiteit 
+      Leuven. His blog can be found at <ulink
       url="http://el-tramo.be"><uri>http://el-tramo.be</uri></ulink>.
     </para>
   </colophon>
