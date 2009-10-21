@@ -1,11 +1,11 @@
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
 
-#include "Swift/Client/Client.h"
-#include "Swift/Network/Timer.h"
-#include "Swift/EventLoop/MainEventLoop.h"
-#include "Swift/EventLoop/SimpleEventLoop.h"
-#include "Swift/Queries/Requests/GetRosterRequest.h"
+#include "Swiften/Client/Client.h"
+#include "Swiften/Network/Timer.h"
+#include "Swiften/EventLoop/MainEventLoop.h"
+#include "Swiften/EventLoop/SimpleEventLoop.h"
+#include "Swiften/Queries/Requests/GetRosterRequest.h"
 
 using namespace Swift;
 using namespace boost;
@@ -22,7 +22,7 @@ XMPPClient* xmppClient = NULL;
 bool rosterReceived = false;
 
 int main(int argc, char* argv[]) {
-	xmppClient = new XMPPClient(getenv("TEST_JID"), getenv("TEST_PASS"));
+	xmppClient = new XMPPClient(JID(getenv("TEST_JID")), getenv("TEST_PASS"));
 	xmppClient->onConnected.connect(&handleConnected); /* (*) When connected (and authenticated), call <literal>handleConnected</literal>. */
 	xmppClient->connect();
 	return rosterReceived;

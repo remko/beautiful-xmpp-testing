@@ -1,0 +1,54 @@
+Import("env")
+
+test_env = env.Clone()
+
+test_env.Append(CPPPATH = [".", "CppUnit", "Swift"])
+test_env.Append(LIBPATH = ["Swift/Swiften", "Swift/3rdParty/Boost", "Swift/3rdParty/LibIDN"])
+test_env.Append(CPPDEFINES = [("BOOST_SIGNALS_NAMESPACE", "bsignals")])
+test_env.Append(CPPFLAGS = ["-Wall", "-I" + Dir(".").path + "/Swift/3rdParty/Boost"])
+test_env.Append(LIBS = ["Swiften", "Boost", "IDN", "expat", "ssl", "crypto", "pthread", "resolv"])
+
+cppunit = test_env.StaticLibrary("CppUnit", [
+		"CppUnit/src/TextTestRunner.cpp",
+		"CppUnit/src/TextTestProgressListener.cpp",
+		"CppUnit/src/TextOutputter.cpp",
+		"CppUnit/src/StringTools.cpp",
+		"CppUnit/src/DefaultProtector.cpp",
+		"CppUnit/src/Protector.cpp",
+		"CppUnit/src/ProtectorChain.cpp",
+		"CppUnit/src/SynchronizedObject.cpp",
+		"CppUnit/src/SourceLine.cpp",
+		"CppUnit/src/TestRunner.cpp",
+		"CppUnit/src/TestFactoryRegistry.cpp",
+		"CppUnit/src/TestSuite.cpp",
+		"CppUnit/src/TestSuiteBuilderContext.cpp",
+		"CppUnit/src/TestResult.cpp",
+		"CppUnit/src/TestResultCollector.cpp",
+		"CppUnit/src/TestSuccessListener.cpp",
+		"CppUnit/src/TestComposite.cpp",
+		"CppUnit/src/TestCase.cpp",
+		"CppUnit/src/TestFailure.cpp",
+		"CppUnit/src/TestLeaf.cpp",
+		"CppUnit/src/TestNamer.cpp",
+		"CppUnit/src/Asserter.cpp",
+		"CppUnit/src/TypeInfoHelper.cpp",
+		"CppUnit/src/Exception.cpp",
+		"CppUnit/src/Message.cpp",
+		"CppUnit/src/AdditionalMessage.cpp",
+		"CppUnit/src/Test.cpp",
+		"CppUnit/src/TestPath.cpp"
+	])
+
+test_env.Program("AllTests", [
+		"Tests/VersionResponderTest_V1.cpp",
+		"Tests/VersionResponderTest_V2.cpp",
+		"Tests/VersionResponderTest_V3.cpp",
+		"Tests/RoomDiscovererTest.cpp",
+		"Tests/SessionTest.cpp",
+		"AllTests.cpp",
+		cppunit
+	])
+
+test_env.Program("ClientTest", [
+		"Tests/ClientTest.cpp",
+	])
