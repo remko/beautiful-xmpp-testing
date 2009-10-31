@@ -6,7 +6,8 @@ Export("env")
 
 env.DocBook("BeautifulXMPPTesting.xml")
 
-SConscript(dirs = "src")
+if "check" in ARGUMENTS or env.GetOption("clean") :
+	SConscript(dirs = "src")
 
 ################################################################################
 # Code generation helper
