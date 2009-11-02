@@ -1,6 +1,6 @@
 import os
 
-env = Environment()
+env = Environment(ENV = {'PATH' : os.environ['PATH']})
 env.Tool("docbook-kit", toolpath = ["docbook-kit/tools/SCons"], docbookkit_dir = "docbook-kit", docbook_dir = "docbook")
 Export("env")
 
